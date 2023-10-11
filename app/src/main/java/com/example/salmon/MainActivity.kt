@@ -10,36 +10,48 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ArrayAdapter
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import com.example.salmon.databinding.ActivityMainBinding
+import com.example.salmon.databinding.ContentMainBinding
 import net.posprinter.POSConnect
 import net.posprinter.POSConst
 import net.posprinter.POSPrinter
 
 class MainActivity : AppCompatActivity() {
-    private val printer = POSPrinter(App.get().curConnect)
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
+    private lateinit var bind: ContentMainBinding
+    private var pos = 0
+    companion object {
+        const val INTENT_MAC = "MAC"
+        const val MAC_ADDRESS = "MAC_ADDRESS"
+        const val OPT_MODIFY = 1
+        const val OPT_SEARCH = 2
+    }
 
+    private val launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+        if (result.resultCode == RESULT_OK) {
+            val mac = result.data!!.getStringExtra(INTENT_MAC)
+            bind.addressTv.text = mac
+        }
+    }
+    private val netLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode === RESULT_OK && result.data != null) {
+            bind.addressEt.setText(result.data!!.getStringExtra(MAC_ADDRESS))
+        }
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
+        bind = ContentMainBinding.inflate(layoutInflater)
         val entries = POSConnect.getSerialPort()
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, entries)
         binding.serialPortNs.adapter = adapter
         setContentView(binding.root)
 
-        setSupportActionBar(binding.toolbar)
 
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
-        appBarConfiguration = AppBarConfiguration(navController.graph)
-        setupActionBarWithNavController(navController, appBarConfiguration)
-
-//        binding.fab.setOnClickListener { view ->
-//            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                .setAction("Action", null).show()
-//        }
-
-        binding.fab.setOnClickListener {
+        bind.btnTxt.setOnClickListener {
             printText()
         }
     }
@@ -60,13 +72,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
-        return navController.navigateUp(appBarConfiguration)
-                || super.onSupportNavigateUp()
-    }
-
     private fun printText() {
+        val printer = POSPrinter(App.get().curConnect)
         val str = "Welcome to the printer,this is print test content!\n"
         printer.printString(str)
             .printText("printText Demo\n", POSConst.ALIGNMENT_CENTER, POSConst.FNT_BOLD or POSConst.FNT_UNDERLINE, POSConst.TXT_1WIDTH or POSConst.TXT_2HEIGHT)
