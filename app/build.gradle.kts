@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.salmon"
-        minSdk = 32
+        minSdk = 30
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -51,5 +51,6 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.aar"))))
     implementation("io.github.jeremyliao:live-event-bus-x:1.8.0")
+    implementation("io.reactivex.rxjava3:rxjava:3.1.5")
 
 }

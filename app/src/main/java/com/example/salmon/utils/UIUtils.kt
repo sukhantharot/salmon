@@ -1,14 +1,14 @@
 package com.example.salmon.utils
 
+import android.content.Context
 import android.widget.Toast
-import com.example.salmon.App
 
 object UIUtils {
-    fun toast(strRes: Int) {
-        Toast.makeText(App.get(), strRes, Toast.LENGTH_SHORT).show()
+    fun toast(context: Context, strRes: Int) {
+        Toast.makeText(context, strRes, Toast.LENGTH_SHORT).show()
     }
 
-    fun toast(str: String) {
-        Toast.makeText(App.get(), str, Toast.LENGTH_SHORT).show()
+    fun toast(context: Context, str: String) {
+        Toast.makeText(context, str, Toast.LENGTH_SHORT).show()
     }
 }

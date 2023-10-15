@@ -6,7 +6,13 @@
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
-
+    <string-array name="port">
+        <item>USB</item>
+        <item>NET</item>
+        <item>BT</item>
+        <item>Serial</item>
+        <item>MAC</item>
+    </string-array>
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
         volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus
@@ -65,7 +71,7 @@
     <string name="start_zpl_activity">Start ZPL Printer</string>
     <string name="qrcode">Print QRCode</string>
     <string name="none_ipaddress">please input the ipaddress first!</string>
-    <string name="none_mac_address">please input the mac address first!</string>
+    <string name="none_mac_address">please select printer</string>
     <string name="connect_first">please connect the printer first!</string>
     <string name="check_link">checkLink</string>
     <string name="self_check">self check</string>
@@ -92,4 +98,9 @@
     <string name="set_bluetooth">Set Bluetooth</string>
     <string name="set_net">set net</string>
     <string name="wifi_config">wifi config</string>
+    <string name="about">About</string>
+    <string name="bluetooth_is_not_available">Bluetooth is not Available</string>
+    <string name="bluetooth_is_available">Bluetooth is Available</string>
+    <string name="on">On</string>
+    <string name="off">Off</string>
 </resources>

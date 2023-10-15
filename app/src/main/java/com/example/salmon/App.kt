@@ -12,25 +12,25 @@ class App : Application() {
     private val connectListener = IPOSListener { code, msg ->
         when (code) {
             POSConnect.CONNECT_SUCCESS -> {
-                UIUtils.toast(R.string.con_success)
+                UIUtils.toast(this, R.string.con_success)
                 LiveEventBus.get<Boolean>(Constant.EVENT_CONNECT_STATUS).post(true)
             }
             POSConnect.CONNECT_FAIL -> {
-                UIUtils.toast(R.string.con_failed)
+                UIUtils.toast(this, R.string.con_failed)
                 LiveEventBus.get<Boolean>(Constant.EVENT_CONNECT_STATUS).post(false)
             }
             POSConnect.CONNECT_INTERRUPT -> {
-                UIUtils.toast(R.string.con_has_disconnect)
+                UIUtils.toast(this, R.string.con_has_disconnect)
                 LiveEventBus.get<Boolean>(Constant.EVENT_CONNECT_STATUS).post(false)
             }
             POSConnect.SEND_FAIL -> {
-                UIUtils.toast(R.string.send_failed)
+                UIUtils.toast(this, R.string.send_failed)
             }
             POSConnect.USB_DETACHED -> {
-                UIUtils.toast(R.string.usb_detached)
+                UIUtils.toast(this, R.string.usb_detached)
             }
             POSConnect.USB_ATTACHED -> {
-                UIUtils.toast(R.string.usb_attached)
+                UIUtils.toast(this, R.string.usb_attached)
             }
         }
     }
