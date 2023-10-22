@@ -25,7 +25,9 @@ class AboutActivity : AppCompatActivity() {
         val webViewClient = WebViewClient()
         webView.webViewClient = webViewClient
         webView.settings.javaScriptEnabled = true
-
+        webView.clearHistory();
+        webView.clearFormData();
+        webView.clearCache(true);
 //        val javascriptFunction = JavascriptFunction(textView)
 //        webView.addJavascriptInterface(javascriptFunction, "JavascriptFunction")
         webView.addJavascriptInterface(JSBridge(this,mEditText),"JSBridge")
